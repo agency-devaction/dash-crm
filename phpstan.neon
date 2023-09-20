@@ -2,7 +2,8 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
 parameters:
-
+    excludePaths:
+        - tests/**
     noUnnecessaryCollectionCall: false
     checkGenericClassInNonGenericObjectType: false
     paths:
