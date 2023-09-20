@@ -37,18 +37,30 @@ it('should be able to register a new user in the system', function () {
 test(
     'required fields',
     function ($f) {
+        if ($f->rule === 'unique') {
+            User::factory()->create([
+                $f->field => $f->value,
+            ]);
+        }
 
-        Livewire::test(Register::class)
-            ->set($f->field, $f->value)
-            ->call('submit')
+        $livewire = Livewire::test(Register::class)
+               ->set($f->field, $f->value);
+
+        if (property_exists($f, 'addField')) {
+            $livewire->set($f->addField, $f->addValue);
+        }
+
+        $livewire->call('submit')
             ->assertHasErrors([$f->field => $f->rule]);
     }
 )
     ->with([
         'name::required'     => (object)['field' => 'name', 'value' => '', 'rule' => 'required'],
         'name::max:255'      => (object)['field' => 'name', 'value' => str_repeat('*', 256), 'rule' => 'max'],
+        'email::required'    => (object)['field' => 'email', 'value' => '', 'rule' => 'required'],
         'email::email'       => (object)['field' => 'email', 'value' => 'not-an-email', 'rule' => 'email'],
         'email::max'         => (object)['field' => 'email', 'value' => str_repeat('*' . '@doe.com', 256), 'rule' => 'max'],
         'email::confirmed'   => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'confirmed'],
+        'email::unique'      => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'unique', 'addField' => 'email_confirmation', 'addValue' => 'joe@gmail.com'],
         'password::required' => (object)['field' => 'password', 'value' => '', 'rule' => 'required'],
     ]);
