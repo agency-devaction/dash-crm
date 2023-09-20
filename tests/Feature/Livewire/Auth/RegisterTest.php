@@ -14,7 +14,7 @@ it('should be able to register a new user in the system', function () {
     Livewire::test(Register::class)
         ->set('name', 'John Doe')
         ->set('email', 'jhondoe@gmail.com')
-        ->set('email_confirmation', 'hondoe@gmail.com')
+        ->set('email_confirmation', 'jhondoe@gmail.com')
         ->set('password', 'password')
         ->call('submit')
         ->assertHasNoErrors();
