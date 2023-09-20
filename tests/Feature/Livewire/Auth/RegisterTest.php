@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Auth\Register;
+use App\Models\User;
 use Livewire\Livewire;
 
 use function Pest\Laravel\{assertDatabaseCount, assertDatabaseHas};
@@ -24,6 +25,11 @@ it('should be able to register a new user in the system', function () {
         'email' => 'jhondoe@gmail.com']);
 
     assertDatabaseCount('users', 1);
+
+    expect(auth()->check())
+        ->and(auth()->user())
+        ->id
+        ->toBe(User::first()->id);
 });
 
 test(
@@ -35,11 +41,12 @@ test(
             ->call('submit')
             ->assertHasErrors([$f->field => $f->rule]);
     }
-)->with([
-    'name::required'     => (object)['field' => 'name', 'value' => '', 'rule' => 'required'],
-    'name::max:255'      => (object)['field' => 'name', 'value' => str_repeat('*', 256), 'rule' => 'max'],
-    'email::email'       => (object)['field' => 'email', 'value' => 'not-an-email', 'rule' => 'email'],
-    'email::max'         => (object)['field' => 'email', 'value' => str_repeat('*' . '@doe.com', 256), 'rule' => 'max'],
-    'email::confirmed'   => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'confirmed'],
-    'password::required' => (object)['field' => 'password', 'value' => '', 'rule' => 'required'],
-]);
+)
+    ->with([
+        'name::required'     => (object)['field' => 'name', 'value' => '', 'rule' => 'required'],
+        'name::max:255'      => (object)['field' => 'name', 'value' => str_repeat('*', 256), 'rule' => 'max'],
+        'email::email'       => (object)['field' => 'email', 'value' => 'not-an-email', 'rule' => 'email'],
+        'email::max'         => (object)['field' => 'email', 'value' => str_repeat('*' . '@doe.com', 256), 'rule' => 'max'],
+        'email::confirmed'   => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'confirmed'],
+        'password::required' => (object)['field' => 'password', 'value' => '', 'rule' => 'required'],
+    ]);
