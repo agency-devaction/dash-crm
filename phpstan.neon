@@ -3,7 +3,10 @@ includes:
 
 parameters:
     excludePaths:
-        - tests/**
+        analyse:
+            - tests
+
+
     noUnnecessaryCollectionCall: false
     checkGenericClassInNonGenericObjectType: false
     paths:
