@@ -3,6 +3,7 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
+use App\Notifications\Register\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\{Factory, View};
@@ -32,6 +33,8 @@ class Register extends Component
         ]);
 
         auth()->login($user);
+
+        $user->notify(new WelcomeNotification());
 
         $this->redirect(RouteServiceProvider::HOME);
     }
