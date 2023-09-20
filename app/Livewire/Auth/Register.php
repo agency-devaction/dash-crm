@@ -36,8 +36,9 @@ class Register extends Component
         $this->redirect(RouteServiceProvider::HOME);
     }
 
-    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
+    public function render(): View|Factory|Application
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.register')
+            ->layout('components.layouts.guest');
     }
 }
