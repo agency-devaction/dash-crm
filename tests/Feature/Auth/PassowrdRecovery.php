@@ -2,6 +2,7 @@
 
 use App\Livewire\Auth\Password\Recovery;
 use App\Models\User;
+use App\Notifications\Auth\PasswordRecoverNotification;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
@@ -13,7 +14,7 @@ test('needs to have a route to password recovery', function () {
         ->assertOk();
 });
 
-it('should be able to request for a password', function () {
+it('should be able to request for a password recovery sending notification to user', function () {
     Notification::fake();
 
     $user = User::factory()->create();
@@ -23,5 +24,5 @@ it('should be able to request for a password', function () {
         ->call('startPasswordRecovery')
         ->assertSee(__('You will receive an email with a link to reset your password.'));
 
-    Notification::assertSentTo($user, new PasswordRecoverNotification());
+    Notification::assertSentTo($user, PasswordRecoverNotification::class);
 });
