@@ -6,11 +6,12 @@ use App\Notifications\Auth\PasswordRecoverNotification;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
-use function Pest\Laravel\get;
+use function Pest\Laravel\{get};
 
 test('needs to have a route to password recovery', function () {
 
     get(route('password.recovery'))
+        ->assertSeeLivewire('auth.password.recovery')
         ->assertOk();
 });
 
