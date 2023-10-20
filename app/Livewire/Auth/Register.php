@@ -7,7 +7,7 @@ use App\Notifications\Register\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\{Factory, View};
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\{Layout, Rule};
 use Livewire\Component;
 
 class Register extends Component
@@ -39,9 +39,9 @@ class Register extends Component
         $this->redirect(RouteServiceProvider::HOME);
     }
 
+    #[Layout('components.layouts.guest')]
     public function render(): View|Factory|Application
     {
-        return view('livewire.auth.register')
-            ->layout('components.layouts.guest');
+        return view('livewire.auth.register');
     }
 }
