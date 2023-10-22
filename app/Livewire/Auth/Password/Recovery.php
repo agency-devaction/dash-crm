@@ -26,6 +26,6 @@ class Recovery extends Component
 
         Password::sendResetLink($this->only('email'));
 
-        $this->message = "You will receive an email with a link to reset your password.";
+        $this->message = 'You will receive an email with a link to reset your password.';
     }
 }

@@ -5,6 +5,12 @@
     shadow
     separator
 >
+    @if( $message = session()->get('status') )
+        <x-alert t icon="o-exclamation-triangle" class="alert-error mb-4">
+            <span>{{ $message }}</span>
+        </x-alert>
+    @endif
+
     @if($errors->hasAny('invalidCredentials', 'rateLimitExceeded'))
         <x-alert t icon="o-exclamation-triangle" class="alert-warning mb-4">
             @error('invalidCredentials')

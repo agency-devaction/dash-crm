@@ -23,7 +23,7 @@ class Login extends Component
 
     public function tryToLogin(): void
     {
-        if(RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             $this->addError('rateLimitExceeded', trans('auth.throttle', [
                 'seconds' => RateLimiter::availableIn($this->throttleKey()),
             ]));
@@ -42,11 +42,8 @@ class Login extends Component
         $this->redirect(route('dashboard'));
     }
 
-    /**
-     * @return string
-     */
     private function throttleKey(): string
     {
-        return Str::transliterate(Str::lower((string)$this->email) . '|' . Request::ip());
+        return Str::transliterate(Str::lower((string) $this->email) . '|' . Request::ip());
     }
 }
