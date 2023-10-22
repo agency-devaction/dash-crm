@@ -61,3 +61,37 @@ test('if is possible to reset the password with the give token', function () {
         return true;
     });
 });
+
+test('check form tules', function ($field, $value, $rule) {
+    Notification::fake();
+
+    $user = User::factory()->create();
+
+    Livewire::test(Password\Recovery::class, [
+        'email' => $user->email,
+    ])
+        ->call('startPasswordRecovery');
+
+    Notification::assertSentTo(
+        $user,
+        ResetPassword::class,
+        function (ResetPassword $notification) use ($user, $field, $value, $rule) {
+            Livewire::test(Password\Reset::class, [
+                'token' => $notification->token,
+                'email' => $user->email,
+            ])
+                ->set($field, $value)
+                ->call('updatePassword')
+                ->assertHasErrors([$field => $rule]);
+
+            return true;
+        }
+    );
+
+})->with([
+    'email:required'     => ['field' => 'email', 'value' => '', 'rule' => 'required'],
+    'email:confirmed'    => ['field' => 'email', 'value' => 'email@email.com', 'rule' => 'confirmed'],
+    'email:email'        => ['field' => 'email', 'value' => 'not-an-email', 'rule' => 'email'],
+    'password:required'  => ['field' => 'password', 'value' => '', 'rule' => 'required'],
+    'password:confirmed' => ['field' => 'password', 'value' => 'password', 'rule' => 'confirmed'],
+]);

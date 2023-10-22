@@ -56,14 +56,14 @@ test(
             ->assertHasErrors([$f->field => $f->rule]);
     }
 )->with([
-    'name::required'     => (object)['field' => 'name', 'value' => '', 'rule' => 'required'],
-    'name::max:255'      => (object)['field' => 'name', 'value' => str_repeat('*', 256), 'rule' => 'max'],
-    'email::required'    => (object)['field' => 'email', 'value' => '', 'rule' => 'required'],
-    'email::email'       => (object)['field' => 'email', 'value' => 'not-an-email', 'rule' => 'email'],
-    'email::max'         => (object)['field' => 'email', 'value' => str_repeat('*' . '@doe.com', 256), 'rule' => 'max'],
-    'email::confirmed'   => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'confirmed'],
-    'email::unique'      => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'unique', 'addField' => 'email_confirmation', 'addValue' => 'joe@gmail.com'],
-    'password::required' => (object)['field' => 'password', 'value' => '', 'rule' => 'required'],
+    'name:required'     => (object)['field' => 'name', 'value' => '', 'rule' => 'required'],
+    'name:max:255'      => (object)['field' => 'name', 'value' => str_repeat('*', 256), 'rule' => 'max'],
+    'email:required'    => (object)['field' => 'email', 'value' => '', 'rule' => 'required'],
+    'email:email'       => (object)['field' => 'email', 'value' => 'not-an-email', 'rule' => 'email'],
+    'email:max'         => (object)['field' => 'email', 'value' => str_repeat('*' . '@doe.com', 256), 'rule' => 'max'],
+    'email:confirmed'   => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'confirmed'],
+    'email:unique'      => (object)['field' => 'email', 'value' => 'joe@gmail.com', 'rule' => 'unique', 'addField' => 'email_confirmation', 'addValue' => 'joe@gmail.com'],
+    'password:required' => (object)['field' => 'password', 'value' => '', 'rule' => 'required'],
 ]);
 
 it('should sen a notification welcoming the new user', function () {
