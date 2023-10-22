@@ -7,9 +7,10 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\{DB, Hash};
 use Illuminate\Support\Str;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\{Computed, Rule};
 use Livewire\Component;
 use Password;
+use RuntimeException;
 use stdClass;
 
 class Reset extends Component
@@ -59,6 +60,16 @@ class Reset extends Component
         session()->flash('status', __('Your password has been reset.'));
 
         $this->redirect(route('dashboard'), navigate: true);
+    }
+
+    #[Computed]
+    public function obfuscateEmail(): ?string
+    {
+        if (is_null($this->email)) {
+            throw new RuntimeException('Email is required');
+        }
+
+        return obfuscate_email($this->email);
     }
 
     private function tokenNotValid(): bool
