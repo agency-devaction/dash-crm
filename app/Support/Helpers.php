@@ -1,7 +1,11 @@
 <?php
 
-function obfuscate_email(string $email): string
+function obfuscate_email(?string $email = null): string
 {
+    if (is_null($email) || !strpos($email, '@')) {
+        return '';
+    }
+
     [$firstPart, $secondPart] = explode('@', $email);
 
     $qty             = (int) floor(strlen($firstPart) * 0.75);

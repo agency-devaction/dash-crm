@@ -5,12 +5,11 @@ namespace App\Livewire\Auth\Password;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\{DB, Hash};
 use Illuminate\Support\Str;
-use Livewire\Attributes\{Computed, Rule};
+use Livewire\Attributes\{Computed, Layout, Rule};
 use Livewire\Component;
-use Password;
-use RuntimeException;
 use stdClass;
 
 class Reset extends Component
@@ -37,6 +36,8 @@ class Reset extends Component
             $this->redirectRoute('login');
         }
     }
+
+    #[Layout('components.layouts.guest')]
     public function render(): View
     {
         return view('livewire.auth.password.reset');
@@ -46,7 +47,7 @@ class Reset extends Component
     {
         $this->validate();
 
-        Password::reset(
+        $status = Password::reset(
             $this->only('email', 'password', 'password_confirmation', 'token'),
             function (User $user, $password) {
                 $user->password       = $password;
@@ -59,16 +60,16 @@ class Reset extends Component
 
         session()->flash('status', __('Your password has been reset.'));
 
-        $this->redirect(route('dashboard'), navigate: true);
+        if ($status !== Password::PASSWORD_RESET) {
+            return;
+        }
+
+        $this->redirect(route('login'), navigate: true);
     }
 
     #[Computed]
     public function obfuscateEmail(): ?string
     {
-        if (is_null($this->email)) {
-            throw new RuntimeException('Email is required');
-        }
-
         return obfuscate_email($this->email);
     }
 
