@@ -22,6 +22,6 @@ class Logout extends Component
         auth()->logout();
         session()->regenerateToken();
 
-        $this->redirect(route('login'));
+        $this->redirect(route('login'), navigate: true);
     }
 }

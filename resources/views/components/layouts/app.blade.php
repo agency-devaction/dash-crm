@@ -47,5 +47,9 @@
         {{ $slot }}
     </x-slot:content>
 </x-main>
+<script>
+    document.addEventListener('livewire:navigated', () => {
+    })
+</script>
 </body>
 </html>
