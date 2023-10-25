@@ -9,12 +9,12 @@ class Logout extends Component
     public function render(): string
     {
         return <<<BLADE
-                <x-button
-                     icon="o-power"
-                     class="btn-circle btn-ghost btn-xs"
-                     wire:click="logout"
-                 />
-                BLADE;
+            <div><x-button
+                icon="o-power"
+                class="btn-circle btn-ghost btn-xs"
+                wire:click="logout"
+            /></div>
+        BLADE;
     }
 
     public function logout(): void
@@ -22,6 +22,6 @@ class Logout extends Component
         auth()->logout();
         session()->regenerateToken();
 
-        $this->redirect(route('login'), navigate: true);
+        $this->redirect(route('login'));
     }
 }
