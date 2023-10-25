@@ -1,12 +1,12 @@
 <?php
 
-use App\Livewire\Auth\{Login, Password, Register};
+use App\Livewire\Auth\{Login, Logout, Password, Register};
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', Login::class)->name('login');
 Route::get('/registration', Register::class)->name('auth.register');
-Route::get('/logout', static fn () => Auth::logout())->name('auth.logout');
+Route::get('/logout', Logout::class)->name('auth.logout');
 Route::get('password/recovery', Password\Recovery::class)->name('password.recovery');
 Route::get('password/reset/{token}/{email?}', Password\Reset::class)->name('password.reset');
 
