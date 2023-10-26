@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -54,10 +56,24 @@ class User extends Authenticatable
     public function givePermissionTo(string $key): void
     {
         $this->permissions()->firstOrCreate(['key' => $key]);
+
+        Cache::forget($this->getCacheKey());
+
+        Cache::rememberForever($this->getCacheKey(), fn () => $this->permissions);
     }
 
     public function hasPermissionTo(string $key): bool
     {
-        return $this->permissions()->where(compact('key'))->exists();
+        /** @var Collection $permissions */
+        $permissions = Cache::get($this->getCacheKey(), $this->permissions);
+
+        return $permissions
+            ->where('key', '=', $key)
+            ->isNotEmpty();
+    }
+
+    private function getCacheKey(): string
+    {
+        return "user::{$this->id}::permissions";
     }
 }
