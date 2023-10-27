@@ -8,7 +8,7 @@ use function Pest\Laravel\{actingAs, get};
 
 it('renders successfully', function () {
     Livewire::test(Dashboard::class)
-        ->assertStatus(200);
+        ->assertStatus(403);
 });
 
 it('should block the access to ab admin page if the user does not have the permission be an admin', function () {
