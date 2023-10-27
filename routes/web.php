@@ -4,12 +4,22 @@ use App\Livewire\Auth\{Login, Logout, Password, Register};
 use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
+//region Flow
 Route::get('login', Login::class)->name('login');
 Route::get('/registration', Register::class)->name('auth.register');
 Route::get('/logout', Logout::class)->name('auth.logout');
 Route::get('password/recovery', Password\Recovery::class)->name('password.recovery');
 Route::get('password/reset/{token}/{email?}', Password\Reset::class)->name('password.reset');
+//endregion
 
+//region Authenticated
 Route::middleware('auth')->group(function () {
     Route::get('/', Welcome::class)->name('dashboard');
+
+    //region Admin
+    Route::prefix('/admin')->middleware('can:be-an-admin')->group(function () {
+        Route::get('/', fn () => 'admin.dashboard')->name('admin.dashboard');
+    });
+    //endregion
 });
+//endregion

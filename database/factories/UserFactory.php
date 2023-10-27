@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\Can;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -40,12 +41,10 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function withPermissions(array $permissions): static
+    public function withPermissions(Can $permissions): static
     {
-        return $this->afterCreating(function ($user) use ($permissions) {
-            foreach ($permissions as $permission) {
-                $user->givePermissionTo($permission);
-            }
-        });
+        return $this->afterCreating(
+            fn (User $user) => $user->givePermissionTo($permissions)
+        );
     }
 }
