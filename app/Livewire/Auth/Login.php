@@ -11,9 +11,9 @@ use Request;
 
 class Login extends Component
 {
-    public ?string $email = '';
+    public ?string $email = null;
 
-    public ?string $password = '';
+    public ?string $password = null;
 
     #[Layout('components.layouts.guest')]
     public function render(): View
@@ -39,7 +39,7 @@ class Login extends Component
 
             return;
         }
-        $this->redirect(route('dashboard'), navigate: true);
+        $this->redirect(route('dashboard'));
     }
 
     private function throttleKey(): string
