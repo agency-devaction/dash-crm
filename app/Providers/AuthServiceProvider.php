@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use App\Enum\Can;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,8 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         foreach (Can::cases() as $can) {
             Gate::define(
-                Str::of($can->value)->snake('-')->toString(),
-                fn ($user) => $user->hasPermissionTo($can)
+                $can->value,
+                fn (User $user) => $user->hasPermissionTo($can)
             );
         }
     }
