@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a14d524ffe674ed32712645d4b1e8cba",
+    "content-hash": "4c0420af24c91ea1f694698cf1e3c197",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -2625,16 +2625,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "3.4.0",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "e2392369686d420ca32df3803de28b5d6f76867d"
+                "reference": "c915e2634718dbc8a4a15c61b0e62e7a44e14448"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/e2392369686d420ca32df3803de28b5d6f76867d",
-                "reference": "e2392369686d420ca32df3803de28b5d6f76867d",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c915e2634718dbc8a4a15c61b0e62e7a44e14448",
+                "reference": "c915e2634718dbc8a4a15c61b0e62e7a44e14448",
                 "shasum": ""
             },
             "require": {
@@ -2710,7 +2710,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/3.4.0"
+                "source": "https://github.com/Seldaek/monolog/tree/3.5.0"
             },
             "funding": [
                 {
@@ -2722,7 +2722,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-21T08:46:11+00:00"
+            "time": "2023-10-27T15:32:31+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -3963,16 +3963,16 @@
         },
         {
             "name": "robsontenorio/mary",
-            "version": "0.45.2",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsontenorio/mary.git",
-                "reference": "61da99869eb5db52b3cac6e4c72194c57d898f51"
+                "reference": "97592663081a77f66f743d0803603508083678b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robsontenorio/mary/zipball/61da99869eb5db52b3cac6e4c72194c57d898f51",
-                "reference": "61da99869eb5db52b3cac6e4c72194c57d898f51",
+                "url": "https://api.github.com/repos/robsontenorio/mary/zipball/97592663081a77f66f743d0803603508083678b5",
+                "reference": "97592663081a77f66f743d0803603508083678b5",
                 "shasum": ""
             },
             "require": {
@@ -4024,7 +4024,7 @@
             ],
             "support": {
                 "issues": "https://github.com/robsontenorio/mary/issues",
-                "source": "https://github.com/robsontenorio/mary/tree/0.45.2"
+                "source": "https://github.com/robsontenorio/mary/tree/1.0.0"
             },
             "funding": [
                 {
@@ -4032,7 +4032,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-24T03:10:24+00:00"
+            "time": "2023-10-28T02:41:04+00:00"
         },
         {
             "name": "symfony/console",
