@@ -50,6 +50,7 @@ test('check the table format', function () {
                 ['key' => 'id', 'label' => '#'],
                 ['key' => 'name', 'label' => 'Name'],
                 ['key' => 'email', 'label' => 'Email'],
+                ['key' => 'permission', 'label' => 'permission'],
             ]
         );
 });
