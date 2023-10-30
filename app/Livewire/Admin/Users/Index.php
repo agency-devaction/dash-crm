@@ -18,6 +18,8 @@ class Index extends Component
 {
     public ?string $search = null;
 
+    public array $search_permission = [];
+
     public function mount(): void
     {
         $this->authorize(Can::BE_AN_ADMIN->value);
@@ -42,6 +44,16 @@ class Index extends Component
                 fn (Builder $query): Builder => $query->whereRaw(
                     'lower(email) LIKE ?',
                     ["%{$this->search}%"]
+                )
+            )
+            ->when(
+                $this->search_permission,
+                fn (Builder $query): Builder => $query->whereHas(
+                    'permissions',
+                    fn (Builder $query): Builder => $query->whereIn(
+                        'id',
+                        $this->search_permission
+                    )
                 )
             )
             ->orderBy('id', 'desc')
