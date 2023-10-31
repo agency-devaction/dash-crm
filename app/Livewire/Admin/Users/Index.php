@@ -28,6 +28,8 @@ class Index extends Component
 
     public string $sortByColumn = 'id';
 
+    public int $perPage = 15;
+
     public function mount(): void
     {
         $this->authorize(Can::BE_AN_ADMIN->value);
@@ -65,7 +67,7 @@ class Index extends Component
                 fn (Builder $query): Builder => $query->onlyTrashed()
             )
             ->orderBy($this->sortByColumn, $this->sortDirection)
-            ->paginate();
+            ->paginate($this->perPage);
     }
 
     #[Computed]
