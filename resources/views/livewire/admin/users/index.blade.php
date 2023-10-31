@@ -20,6 +20,13 @@
             option-label="key"
             no-result-text="No results found"
         />
+
+        <x-select
+            wire:model.live="perPage"
+            label="{{ __('Per page') }}"
+            :options="[['id' => 5,'name' => 5],['id' => 15,'name' => 15],['id' => 25,'name' => 25],['id' => 50,'name' => 50]]"
+        />
+
         <x-checkbox
             label="{{ __('Show Delete users') }}"
             wire:model.live="search_trashed"
@@ -56,4 +63,6 @@
 
         @endscope
     </x-table>
+
+    {{ $this->users->links() }}
 </div>
