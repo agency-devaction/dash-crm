@@ -47,10 +47,10 @@ test('check the table format', function () {
         ->assertSet(
             'headers',
             [
-                ['key' => 'id', 'label' => '#'],
-                ['key' => 'name', 'label' => 'Name'],
-                ['key' => 'email', 'label' => 'Email'],
-                ['key' => 'permission', 'label' => 'permission'],
+                ['key' => 'id', 'label' => '#', 'sortByColumn' => 'id', 'sortDirection' => 'asc'],
+                ['key' => 'name', 'label' => 'Name', 'sortByColumn' => 'id', 'sortDirection' => 'asc'],
+                ['key' => 'email', 'label' => 'Email', 'sortByColumn' => 'id', 'sortDirection' => 'asc'],
+                ['key' => 'permission', 'label' => 'permission', 'sortByColumn' => 'id', 'sortDirection' => 'asc'],
             ]
         );
 });
@@ -141,7 +141,7 @@ test('should be able to sort by name', function () {
 
     actingAs($admin);
     Livewire::test(Users\Index::class)
-        ->set('sortField', 'asc')
+        ->set('sortDirection', 'asc')
         ->set('sortByColumn', 'name')
         ->assertSet('users', function ($users) {
             expect($users)
@@ -150,7 +150,7 @@ test('should be able to sort by name', function () {
 
             return true;
         })
-        ->set('sortField', 'desc')
+        ->set('sortDirection', 'desc')
         ->set('sortByColumn', 'name')
         ->assertSet('users', function ($users) {
             expect($users)

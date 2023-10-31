@@ -24,7 +24,7 @@ class Index extends Component
 
     public bool $search_trashed = false;
 
-    public string $sortField = 'asc';
+    public string $sortDirection = 'asc';
 
     public string $sortByColumn = 'id';
 
@@ -48,12 +48,7 @@ class Index extends Component
                     'lower(name) LIKE ?',
                     ["%{$this->search}%"]
                 )
-            )
-            ->orWhere(
-                fn (Builder $query): Builder => $query->whereRaw(
-                    'lower(email) LIKE ?',
-                    ["%{$this->search}%"]
-                )
+                    ->orWhere('email', 'LIKE', "%{$this->search}%")
             )
             ->when(
                 $this->search_permission,
@@ -69,7 +64,7 @@ class Index extends Component
                 $this->search_trashed,
                 fn (Builder $query): Builder => $query->onlyTrashed()
             )
-            ->orderBy($this->sortByColumn, $this->sortField)
+            ->orderBy($this->sortByColumn, $this->sortDirection)
             ->paginate();
     }
 
@@ -77,10 +72,10 @@ class Index extends Component
     public function headers(): array
     {
         return [
-            ['key' => 'id', 'label' => '#'],
-            ['key' => 'name', 'label' => 'Name'],
-            ['key' => 'email', 'label' => 'Email'],
-            ['key' => 'permission', 'label' => 'permission'],
+            ['key' => 'id', 'label' => '#', 'sortByColumn' => $this->sortByColumn, 'sortDirection' => $this->sortDirection],
+            ['key' => 'name', 'label' => 'Name', 'sortByColumn' => $this->sortByColumn, 'sortDirection' => $this->sortDirection],
+            ['key' => 'email', 'label' => 'Email', 'sortByColumn' => $this->sortByColumn, 'sortDirection' => $this->sortDirection],
+            ['key' => 'permission', 'label' => 'permission', 'sortByColumn' => $this->sortByColumn, 'sortDirection' => $this->sortDirection],
         ];
     }
 
@@ -90,5 +85,11 @@ class Index extends Component
             ->where('key', 'LIKE', "%{$value}%")
             ->orderBy('key')
             ->get();
+    }
+
+    public function sortBy(string $column, string $direction): void
+    {
+        $this->sortByColumn  = $column;
+        $this->sortDirection = $direction;
     }
 }
