@@ -42,10 +42,16 @@ class Index extends Component
         return view('livewire.admin.users.index');
     }
 
+    public function updatedPerPage(): void
+    {
+        $this->resetPage();
+    }
+
     #[Computed]
     public function users(): LengthAwarePaginator
     {
         return User::query()
+            ->with('permissions')
             ->when(
                 $this->search,
                 fn (Builder $query): Builder => $query->whereRaw(
