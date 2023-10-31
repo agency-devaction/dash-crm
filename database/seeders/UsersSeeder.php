@@ -22,5 +22,6 @@ class UsersSeeder extends Seeder
             ]);
 
         User::factory()->count(50)->create();
+        User::factory()->count(15)->create(['deleted_at' => now()]);
     }
 }
