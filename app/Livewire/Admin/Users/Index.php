@@ -22,6 +22,8 @@ class Index extends Component
 
     public Collection $permissionsToSearch;
 
+    public bool $search_trashed = false;
+
     public function mount(): void
     {
         $this->authorize(Can::BE_AN_ADMIN->value);
@@ -58,6 +60,10 @@ class Index extends Component
                         $this->search_permission
                     )
                 )
+            )
+            ->when(
+                $this->search_trashed,
+                fn (Builder $query): Builder => $query->onlyTrashed()
             )
             ->orderBy('id', 'desc')
             ->paginate();

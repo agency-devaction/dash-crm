@@ -8,6 +8,7 @@ parameters:
 
     ignoreErrors:
             - '#Anonymous function should return Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model> but returns Illuminate\\Database\\Eloquent\\Builder<App\\Models\\User>\.#'
+            - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder::onlyTrashed\(\)#'
     noUnnecessaryCollectionCall: false
     checkGenericClassInNonGenericObjectType: false
     paths:

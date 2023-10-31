@@ -7,7 +7,7 @@
                      label="{{ __('Search') }}"
                      placeholder="{{ __('Search') }}"
                      class="input-md"
-                     wire:model="search"
+                     wire:model.live="search"
             />
         </div>
         <x-choices
