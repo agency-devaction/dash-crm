@@ -57,7 +57,7 @@ test('check the table format', function () {
 
 test('should be able to filter by name and email', function () {
     $admin = User::factory()->admin()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
-    $mario = User::factory()->admin()->create(['name' => 'Mario', 'email' => 'mario_guy@gmail.com']);
+    User::factory()->admin()->create(['name' => 'Mario', 'email' => 'mario_guy@gmail.com']);
 
     actingAs($admin);
     Livewire::test(Users\Index::class)
@@ -92,7 +92,7 @@ test('should be able to filter by name and email', function () {
 test('should be able to filter by permission key', function () {
     $admin = User::factory()->admin()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
 
-    $nonAdmin    = User::factory()->withPermissions(Can::TESTING)->create(['name' => 'Mario', 'email' => 'mario_guy@gmail.com']);
+    User::factory()->withPermissions(Can::TESTING)->create(['name' => 'Mario', 'email' => 'mario_guy@gmail.com']);
     $permission  = Permission::where('key', Can::BE_AN_ADMIN->value)->first();
     $permission2 = Permission::where('key', Can::TESTING->value)->first();
 
@@ -116,7 +116,7 @@ test('should be able to filter by permission key', function () {
 test('should be able to list deleted users', function () {
     $admin = User::factory()->admin()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
 
-    $deleteUsers = User::factory()->count(2)->create(['deleted_at' => now()]);
+    User::factory()->count(2)->create(['deleted_at' => now()]);
 
     actingAs($admin);
     Livewire::test(Users\Index::class)
@@ -136,8 +136,8 @@ test('should be able to list deleted users', function () {
 });
 
 test('should be able to sort by name', function () {
-    $admin    = User::factory()->admin()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
-    $nonAdmin = User::factory()->withPermissions(Can::TESTING)->create(['name' => 'Mario', 'email' => 'mario_guy@gmail.com']);
+    $admin = User::factory()->admin()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
+    User::factory()->withPermissions(Can::TESTING)->create(['name' => 'Mario', 'email' => 'mario_guy@gmail.com']);
 
     actingAs($admin);
     Livewire::test(Users\Index::class)
