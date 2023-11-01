@@ -1,6 +1,5 @@
 <div>
-    <x-header title="Users" separator progress-indicator=""/>
-
+    <x-header title="Users" separator progress-indicator/>
     <div class="flex gap-3 mb-4">
         <div class="w-1/3">
             <x-input icon="o-magnifying-glass-circle"
@@ -63,6 +62,7 @@
 
         @endscope
     </x-table>
-
-    {{ $this->users->links() }}
+    <div class="mt-4">
+        {{ $this->users->links(data: ['scrollTo' => false]) }}
+    </div>
 </div>
