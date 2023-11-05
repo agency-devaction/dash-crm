@@ -3,11 +3,10 @@
 namespace App\Livewire\Auth;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\{Auth, RateLimiter};
+use Illuminate\Support\Facades\{Auth, RateLimiter, Request};
 use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Request;
 
 class Login extends Component
 {
