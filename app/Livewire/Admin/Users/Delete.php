@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Users;
 
 use App\Models\User;
+use App\Notifications\AccountDeleted;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -10,6 +11,8 @@ use Livewire\Component;
 class Delete extends Component
 {
     public User $user;
+
+    public bool $modal = false;
 
     #[Rule(['required', 'confirmed'])]
     public string $confirmation = 'OK I AM SURE';
@@ -25,6 +28,7 @@ class Delete extends Component
         $this->validate();
 
         $this->user->delete();
+        $this->user->notify(new AccountDeleted());
         $this->dispatch('user::deleted');
     }
 }

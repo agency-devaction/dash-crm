@@ -2,6 +2,7 @@
 
 use App\Livewire\Admin;
 use App\Models\User;
+use App\Notifications\AccountDeleted;
 
 use function Pest\Laravel\{actingAs, assertNotSoftDeleted, assertSoftDeleted};
 
@@ -31,4 +32,20 @@ it('should have a confirmation before deletion', function () {
         ->assertNotDispatched('user::deleted');
 
     assertNotSoftDeleted('users', ['id' => $forDeletion->id]);
+});
+
+it('should send a notification to the user telling him that he has no long access to the application', function () {
+    Notification::fake();
+
+    $user = User::factory()->admin()->create();
+    actingAs($user);
+
+    $forDeletion = User::factory()->create();
+
+    Livewire::test(Admin\Users\Delete::class, ['user' => $forDeletion])
+        ->set('confirmation_confirmation', 'OK I AM SURE')
+        ->call('destroy');
+
+    Notification::assertSentTo($forDeletion, AccountDeleted::class);
+
 });
