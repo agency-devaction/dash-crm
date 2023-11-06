@@ -64,7 +64,9 @@
                     </div>
                 @endif
             @else
-                <x-button icon="o-arrow-path" wire:click="restore{{ $user->id }}" class="btn-success btn-ghost"/>
+                <div>
+                    <livewire:admin.users.restore :$user wire:key="restore-{{$user->id}}-{{ mt_rand() }}"/>
+                </div>
             @endunless
         @endcan
         @endscope
