@@ -6,7 +6,7 @@ use App\Notifications\AccountRestored;
 
 use function Pest\Laravel\{actingAs, assertNotSoftDeleted, assertSoftDeleted};
 
-it('should be able to delete user', function () {
+it('should be able to restore user', function () {
     $user = User::factory()->admin()->create();
     actingAs($user);
 
@@ -19,9 +19,19 @@ it('should be able to delete user', function () {
         ->assertHasNoErrors();
 
     assertNotSoftDeleted('users', ['id' => $forRestoring->id]);
+
+    $forRestoring->refresh();
+
+    expect($forRestoring)
+        ->restored_by
+        ->not
+        ->toBeNull()
+        ->restoredBy
+        ->id
+        ->toBe($user->id);
 });
 
-it('should have a confirmation before deletion', function () {
+it('should have a confirmation before restore', function () {
     $user         = User::factory()->admin()->create();
     $forRestoring = User::factory()->deleted()->create();
 

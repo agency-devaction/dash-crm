@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Mary\Traits\Toast;
+use RuntimeException;
 
 class Delete extends Component
 {
@@ -30,6 +31,12 @@ class Delete extends Component
     {
         $this->validate();
 
+        $user = auth()->user();
+
+        if (!$user) {
+            throw new RuntimeException('User not found');
+        }
+
         if ($this->user->is(auth()->user())) {
             $this->addError('confirmation', 'You cannot delete yourself.');
 
@@ -37,6 +44,11 @@ class Delete extends Component
         }
 
         $this->user->delete();
+
+        $this->user->deleted_at = now();
+        $this->user->deleted_by = $user->id;
+        $this->user->save();
+
         $this->user->notify(new AccountDeleted());
         $this->dispatch('user::deleted');
 

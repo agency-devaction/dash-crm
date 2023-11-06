@@ -19,6 +19,13 @@ it('should be able to delete user', function () {
         ->assertHasNoErrors();
 
     assertSoftDeleted('users', ['id' => $forDeletion->id]);
+
+    ds($forDeletion->refresh());
+
+    expect($forDeletion)
+        ->deletedBy
+        ->id
+        ->toBe($user->id);
 });
 
 it('should have a confirmation before deletion', function () {
