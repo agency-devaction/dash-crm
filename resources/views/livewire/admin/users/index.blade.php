@@ -1,3 +1,4 @@
+@php use App\Enum\Can; @endphp
 <div>
     <x-header title="Users" separator progress-indicator/>
     <div class="flex gap-3 mb-4">
@@ -54,14 +55,18 @@
         @endscope
 
         @scope('actions', $user)
-        @unless($user->trashed())
-            <div>
-                <livewire:admin.users.delete :$user wire:key="delete-{{$user->id}}-{{ mt_rand() }}"/>
-            </div>
-        @else
-            <x-button icon="o-arrow-path" wire:click="restore{{ $user->id }}" class="btn-success btn-ghost"/>
-        @endunless
+        @can(Can::BE_AN_ADMIN->value)
 
+            @unless($user->trashed())
+                @unless($user->is(auth()->user()))
+                    <div>
+                        <livewire:admin.users.delete :$user wire:key="delete-{{$user->id}}-{{ mt_rand() }}"/>
+                    </div>
+                @endif
+            @else
+                <x-button icon="o-arrow-path" wire:click="restore{{ $user->id }}" class="btn-success btn-ghost"/>
+            @endunless
+        @endcan
         @endscope
     </x-table>
     <div class="mt-4">

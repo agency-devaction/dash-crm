@@ -49,3 +49,15 @@ it('should send a notification to the user telling him that he has no long acces
     Notification::assertSentTo($forDeletion, AccountDeleted::class);
 
 });
+
+it('should not be possible to delete the logged user', function () {
+    $user = User::factory()->admin()->create();
+    actingAs($user);
+
+    Livewire::test(Admin\Users\Delete::class, ['user' => $user])
+        ->set('user', $user)
+        ->set('confirmation_confirmation', 'OK I AM SURE')
+        ->call('destroy')
+        ->assertHasErrors(['confirmation'])
+        ->assertNotDispatched('user::deleted');
+});

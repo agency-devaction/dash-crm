@@ -30,6 +30,12 @@ class Delete extends Component
     {
         $this->validate();
 
+        if ($this->user->is(auth()->user())) {
+            $this->addError('confirmation', 'You cannot delete yourself.');
+
+            return;
+        }
+
         $this->user->delete();
         $this->user->notify(new AccountDeleted());
         $this->dispatch('user::deleted');
