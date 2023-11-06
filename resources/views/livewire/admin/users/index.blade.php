@@ -55,7 +55,9 @@
 
         @scope('actions', $user)
         @unless($user->trashed())
-            <livewire:admin.users.delete :$user wire:key="{{$user->key}}"/>
+            <div>
+                <livewire:admin.users.delete :$user wire:key="{{$user->key}}"/>
+            </div>
         @else
             <x-button icon="o-arrow-path" wire:click="restore{{ $user->id }}" class="btn-success btn-ghost"/>
         @endunless

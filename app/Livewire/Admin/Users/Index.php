@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\{Builder, Collection};
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Computed;
-use Livewire\{Component, WithPagination};
+use Livewire\{Attributes\On, Component, WithPagination};
 
 /**
  * @property-read LengthAwarePaginator $users
@@ -37,6 +37,8 @@ class Index extends Component
         $this->authorize(Can::BE_AN_ADMIN->value);
         $this->filterPermissions();
     }
+
+    #[On('user::deleted')]
     public function render(): View
     {
         return view('livewire.admin.users.index');
