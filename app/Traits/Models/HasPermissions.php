@@ -6,7 +6,7 @@ use App\Enum\Can;
 use App\Models\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\{Cache};
+use Illuminate\Support\Facades\Cache;
 
 trait HasPermissions
 {
@@ -33,7 +33,10 @@ trait HasPermissions
         $permissionKey = $key instanceof Can ? $key->value : $key;
 
         /** @var Collection $permissions */
-        $permissions = Cache::get($this->getCacheKey(), fn () => $this->permissions);
+        $permissions = Cache::get(
+            $this->getCacheKey(),
+            fn () => $this->permissions
+        );
 
         return $permissions
             ->where('key', '=', $permissionKey)

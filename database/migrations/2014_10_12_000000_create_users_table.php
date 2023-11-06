@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,6 +19,10 @@ return new class () extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+            $table->datetime('restored_at')->nullable();
+            $table->foreignIdFor(User::class, 'restored_by')->nullable()->nullable()->constrained('users');
+            $table->foreignIdFor(User::class, 'deleted_by')->nullable()->nullable()->constrained('users');
         });
     }
 

@@ -8,6 +8,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans antialiased">
+<x-toast/>
+
 <x-main full-width>
     <x-slot:sidebar drawer="main-drawer" collapsible class="pt-3 bg-sky-800 text-white">
 
@@ -33,16 +35,11 @@
             @endif
 
             <x-menu-item title="Home" icon="o-home" link="/"/>
-            <x-menu-item title="Yeah" icon="o-sparkles" link="####"/>
-
-            <x-menu-sub title="Settings" icon="o-cog-6-tooth">
-                <x-menu-item title="Wifi" icon="o-wifi" link="####"/>
-                <x-menu-item title="Archives" icon="o-archive-box" link="####"/>
-            </x-menu-sub>
 
             @can(Can::BE_AN_ADMIN->value)
                 <x-menu-sub title="{{ __('Admin') }}" icon="o-finger-print">
-                    <x-menu-item title="Dashboard" icon="o-newspaper" :link='route("admin.dashboard")'/>
+                    <x-menu-item title="Dashboard" icon="o-newspaper" link="{{ route('admin.dashboard') }}"/>
+                    <x-menu-item title="Users" icon="o-users" link="{{ route('admin.users') }}"/>
                 </x-menu-sub>
             @endcan
         </x-menu>
