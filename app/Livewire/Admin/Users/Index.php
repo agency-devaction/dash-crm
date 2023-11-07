@@ -105,4 +105,9 @@ class Index extends Component
         $this->sortByColumn  = $column;
         $this->sortDirection = $direction;
     }
+
+    public function showUser(int $userId): void
+    {
+        $this->dispatch('user::show', id: $userId);
+    }
 }

@@ -17,9 +17,20 @@ it('should be able show all the details of a user', function () {
         ->assertSet('modal', true)
         ->assertSee($userToShow->name)
         ->assertSee($userToShow->email)
-        ->assertSee($userToShow->created_at->format('d/m/Y H:i'))
-        ->assertSee($userToShow->updated_at->format('d/m/Y H:i'))
-        ->assertSee($userToShow->deleted_at->format('d/m/Y H:i'))
-        ->assertSee($userToShow->deletedBy->name);
+        ->assertSee(!is_null($userToShow->created_at) ? $userToShow->created_at->format('d/m/Y H:i') : '')
+        ->assertSee(!is_null($userToShow->updated_at) ? $userToShow->updated_at->format('d/m/Y H:i') : '')
+        ->assertSee(!is_null($userToShow->deleted_at) ? $userToShow->deleted_at->format('d/m/Y H:i') : '')
+        ->assertSee($userToShow->deletedBy->name ?? '');
 
+});
+
+it('should open the modal when the event is dispatched', function () {
+    $admin      = User::factory()->admin()->create();
+    $userToShow = User::factory()->deleted()->create();
+
+    actingAs($admin);
+
+    Livewire::test(Admin\Users\Index::class)
+        ->call('showUser', $userToShow->id)
+        ->assertDispatched('user::show', id: $userToShow->id);
 });

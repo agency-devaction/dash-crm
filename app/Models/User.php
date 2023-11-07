@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -19,9 +20,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $password
  * @property ?string $email_verified_at
  * @property ?string $remember_token
- * @property string $created_at
- * @property string $updated_at
- * @property string $restored_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $restored_at
  * @property int|null $restored_by
  * @property int|null $deleted_by
  */

@@ -74,4 +74,6 @@
     <div class="mt-4">
         {{ $this->users->links(data: ['scrollTo' => false]) }}
     </div>
+
+    <livewire:admin.users.show/>
 </div>
