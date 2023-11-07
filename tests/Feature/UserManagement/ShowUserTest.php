@@ -34,3 +34,21 @@ it('should open the modal when the event is dispatched', function () {
         ->call('showUser', $userToShow->id)
         ->assertDispatched('user::show', id: $userToShow->id);
 });
+
+/** @throws ReflectionException */
+test('making sure that method loadUser has the attribute On', function () {
+    $livewireClass = new  Admin\Users\Show();
+
+    try {
+        $reflection = new ReflectionClass($livewireClass);
+        $attributes = $reflection->getMethod('loadUser')->getAttributes(); // Make sure 'loadUser' is correct
+    } catch (ReflectionException $e) {
+        $this->fail('ReflectionException caught: ' . $e->getMessage());
+    }
+
+    expect($attributes)->toHaveCount(1);
+
+    $argument = $attributes[0]->getArguments()[0];
+
+    expect($argument)->toBe('user::show');
+});
