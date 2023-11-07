@@ -18,8 +18,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name
  * @property string $email
  * @property string $password
- * @property Carbon|null $email_verified_at
- * @property string|null $remember_token
+ * @property ?string $email_verified_at
+ * @property ?string $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $restored_at
@@ -45,6 +45,7 @@ class User extends Authenticatable
         'password',
         'restored_at',
         'restored_by',
+        'deleted_by',
     ];
 
     /**
