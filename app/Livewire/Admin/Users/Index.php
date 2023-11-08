@@ -108,6 +108,6 @@ class Index extends Component
 
     public function showUser(int $userId): void
     {
-        $this->dispatch('user::show', id: $userId);
+        $this->dispatch('user::show', $userId);
     }
 }

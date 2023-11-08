@@ -32,7 +32,7 @@ it('should open the modal when the event is dispatched', function () {
 
     Livewire::test(Admin\Users\Index::class)
         ->call('showUser', $userToShow->id)
-        ->assertDispatched('user::show', id: $userToShow->id);
+        ->assertDispatched('user::show', $userToShow->id);
 });
 
 /** @throws ReflectionException */
