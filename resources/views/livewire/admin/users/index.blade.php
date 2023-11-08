@@ -55,20 +55,32 @@
         @endscope
 
         @scope('actions', $user)
-        @can(Can::BE_AN_ADMIN->value)
+        <div class="flex items-center space-x-2">
 
-            @unless($user->trashed())
-                @unless($user->is(auth()->user()))
+            <x-button id="show-{{$user->id}}"
+                      wire:key="show-{{$user->id}}-{{ mt_rand() }}"
+                      icon="o-eye"
+                      class="btn-sm btn-ghost"
+                      wire:click="showUser({{$user->id}})"
+                      spinner
+
+            />
+
+            @can(Can::BE_AN_ADMIN->value)
+
+                @unless($user->trashed())
+                    @unless($user->is(auth()->user()))
+                        <div>
+                            <livewire:admin.users.delete :$user wire:key="delete-{{$user->id}}-{{ mt_rand() }}"/>
+                        </div>
+                    @endif
+                @else
                     <div>
-                        <livewire:admin.users.delete :$user wire:key="delete-{{$user->id}}-{{ mt_rand() }}"/>
+                        <livewire:admin.users.restore :$user wire:key="restore-{{$user->id}}-{{ mt_rand() }}"/>
                     </div>
-                @endif
-            @else
-                <div>
-                    <livewire:admin.users.restore :$user wire:key="restore-{{$user->id}}-{{ mt_rand() }}"/>
-                </div>
-            @endunless
-        @endcan
+                @endunless
+            @endcan
+        </div>
         @endscope
     </x-table>
     <div class="mt-4">
