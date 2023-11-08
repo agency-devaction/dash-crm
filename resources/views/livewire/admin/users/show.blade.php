@@ -15,7 +15,6 @@
         @endif
 
         <hr class="my-5"/>
-        {{-- Livewire: Server side  --}}
         <x-button label="{{ __('Close') }}" @click="$wire.modal = false" class="btn-primary"/>
     </x-drawer>
 </div>

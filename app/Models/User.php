@@ -11,6 +11,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Auditable as AuditableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Class User.
@@ -26,13 +28,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int|null $restored_by
  * @property int|null $deleted_by
  */
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
     use HasPermissions;
     use SoftDeletes;
+    use AuditableTrait;
 
     /**
      * The attributes that are mass assignable.
