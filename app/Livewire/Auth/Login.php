@@ -38,7 +38,7 @@ class Login extends Component
 
             return;
         }
-        $this->redirect(route('dashboard'));
+        $this->redirect(route('welcome'));
     }
 
     private function throttleKey(): string

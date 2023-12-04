@@ -20,7 +20,9 @@ class Logout extends Component
     public function logout(): void
     {
         auth()->logout();
+
         session()->regenerateToken();
+        session()->flush();
 
         $this->redirect(route('login'));
     }

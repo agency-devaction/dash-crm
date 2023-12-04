@@ -71,6 +71,15 @@
                 @unless($user->trashed())
                     @unless($user->is(auth()->user()))
                         <div>
+                            <x-button id="impersonate-{{$user->id}}"
+                                      wire:key="impersonate-{{$user->id}}-{{ mt_rand() }}"
+                                      icon="o-user"
+                                      class="btn-sm btn-ghost"
+                                      wire:click="impersonate({{$user->id}})"
+                                      spinner
+                            />
+                        </div>
+                        <div>
                             <livewire:admin.users.delete :$user wire:key="delete-{{$user->id}}-{{ mt_rand() }}"/>
                         </div>
                     @endif
@@ -88,4 +97,5 @@
     </div>
 
     <livewire:admin.users.show/>
+    <livewire:admin.users.impersonate/>
 </div>

@@ -15,7 +15,7 @@ Route::get('password/reset/{token}/{email?}', Password\Reset::class)->name('pass
 
 //region Authenticated
 Route::middleware('auth')->group(function () {
-    Route::get('/', Welcome::class)->name('dashboard');
+    Route::get('/', Welcome::class)->name('welcome');
 
     //region Admin
     Route::prefix('/admin')->middleware('can:' . Can::BE_AN_ADMIN->value)->group(function () {

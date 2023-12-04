@@ -19,7 +19,7 @@ it('should be able to login', function () {
         ->set('password', 'password')
         ->call('tryToLogin')
         ->assertHasNoErrors()
-        ->assertRedirect(route('dashboard'));
+        ->assertRedirect(route('welcome'));
 
     expect(auth()->check())
         ->toBeTrue()
