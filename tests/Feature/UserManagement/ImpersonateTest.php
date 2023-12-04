@@ -32,7 +32,8 @@ it('should make sure that we are logged with impersonate user', function () {
         ->assertRedirect(route('welcome'));
 
     get(route('welcome'))
-        ->assertSee(__("You're impersonating :name, click here to stop the impersonate.", ['name' => $user->name]));
+        ->assertSee(__("You're impersonating :name, click here", ['name' => $user->name]))
+        ->assertSee(__("to stop impersonating."));
 
     expect(auth()->id())->toBe($user->id);
 });
