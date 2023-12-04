@@ -9,7 +9,11 @@
 </head>
 <body class="min-h-screen font-sans antialiased">
 <x-toast/>
-<livewire:dev.login/>
+
+@if(!app()->environment('production'))
+    <livewire:dev.login/>
+@endif
+
 @if(session('impersonate'))
     <livewire:admin.users.stop-impersonate/>
 @endif
