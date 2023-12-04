@@ -28,7 +28,8 @@ it('should make sure that we are logged with impersonate user', function () {
     expect(auth()->user()?->id)->toBe($admin->id);
 
     Livewire::test(Impersonate::class)
-        ->call('impersonate', $user->id);
+        ->call('impersonate', $user->id)
+        ->assertRedirect(route('welcome'));
 
     get(route('welcome'))
         ->assertSee(__("You're impersonating :name, click here to stop the impersonate.", ['name' => $user->name]));
