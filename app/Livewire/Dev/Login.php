@@ -24,4 +24,11 @@ class Login extends Component
     {
         return User::all();
     }
+
+    public function login(): void
+    {
+        auth()->loginUsingId($this->selectedUser);
+
+        $this->redirect(route('welcome'));
+    }
 }
