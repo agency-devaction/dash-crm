@@ -11,7 +11,7 @@
 <x-toast/>
 
 @if(!app()->environment('production'))
-    <livewire:dev.login/>
+    <x-dev-bar/>
 @endif
 
 @if(session('impersonate'))
