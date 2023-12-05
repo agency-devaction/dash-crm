@@ -9,6 +9,7 @@ use Livewire\Component;
 
 /**
  * @property-read string $branch
+ * @property-read string $env
  */
 class BranchEnv extends Component
 {
@@ -21,5 +22,11 @@ class BranchEnv extends Component
     public function branch(): string
     {
         return trim(Process::run('git branch --show-current')->output());
+    }
+
+    #[Computed]
+    public function env(): string
+    {
+        return app()->environment();
     }
 }
