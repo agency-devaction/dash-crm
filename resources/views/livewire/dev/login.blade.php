@@ -1,4 +1,4 @@
-<div class="flex items-center space-x-2 bg-yellow-300 justify-end">
+<div class="flex items-center space-x-2">
     <x-select icon="o-user"
               :options="$this->users"
               wire:model="selectedUser"
