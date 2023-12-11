@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Auth;
 
-use App\Notifications\Auth\ValidationCodeNotification;
+use App\Events\User\SendNewCode;
 use Closure;
 use http\Exception\RuntimeException;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Random\RandomException;
 
 class EmailValidation extends Component
 {
@@ -43,7 +42,6 @@ class EmailValidation extends Component
     }
 
     /**
-     * @throws RandomException
      */
     public function sendNewCode(): void
     {
@@ -52,10 +50,6 @@ class EmailValidation extends Component
         if ($user === null) {
             throw new RuntimeException('User is not authenticated');
         }
-
-        $user->email_verification_code = random_int(100000, 999999);
-        $user->save();
-
-        $user->notify(new ValidationCodeNotification());
+        SendNewCode::dispatch($user);
     }
 }
