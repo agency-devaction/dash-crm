@@ -17,7 +17,7 @@ return new class() extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->smallInteger('email_verification_code')->nullable();
+            $table->unsignedInteger('email_verification_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
