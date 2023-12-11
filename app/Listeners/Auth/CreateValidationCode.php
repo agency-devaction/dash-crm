@@ -3,6 +3,7 @@
 namespace App\Listeners\Auth;
 
 use App\Models\User;
+use App\Notifications\Auth\ValidationCodeNotification;
 use Illuminate\Auth\Events\Registered;
 use Random\RandomException;
 
@@ -18,5 +19,7 @@ class CreateValidationCode
 
         $user->email_verification_code = random_int(100000, 999999);
         $user->save();
+
+        $user->notify(new ValidationCodeNotification());
     }
 }
