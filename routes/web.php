@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 //region Flow
 Route::get('login', Login::class)->name('login');
 Route::get('/registration', Register::class)->name('auth.register');
-Route::get('/email-verification', fn () => 'email-verification')->name('auth.email-verification');
 Route::get('/logout', Logout::class)->name('auth.logout');
 Route::get('password/recovery', Password\Recovery::class)->name('password.recovery');
 Route::get('password/reset/{token}/{email?}', Password\Reset::class)->name('password.reset');
@@ -16,6 +15,8 @@ Route::get('password/reset/{token}/{email?}', Password\Reset::class)->name('pass
 
 //region Authenticated
 Route::middleware('auth')->group(function () {
+    Route::get('/email-verification', fn () => 'email-verification')->name('auth.email-verification');
+
     Route::get('/', Welcome::class)->name('welcome');
 
     //region Admin
