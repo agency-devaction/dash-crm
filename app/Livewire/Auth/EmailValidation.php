@@ -2,8 +2,12 @@
 
 namespace App\Livewire\Auth;
 
+use App\Notifications\Auth\ValidationCodeNotification;
+use Closure;
+use http\Exception\RuntimeException;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Random\RandomException;
 
 class EmailValidation extends Component
 {
@@ -16,7 +20,7 @@ class EmailValidation extends Component
     public function handle(): void
     {
         $this->validate([
-            'code' => function (string $attribute, $value, \Closure $fail) {
+            'code' => function (string $attribute, $value, Closure $fail) {
                 $user = auth()->user();
 
                 if ($user === null) {
@@ -36,5 +40,22 @@ class EmailValidation extends Component
                 }
             },
         ]);
+    }
+
+    /**
+     * @throws RandomException
+     */
+    public function sendNewCode(): void
+    {
+        $user = auth()->user();
+
+        if ($user === null) {
+            throw new RuntimeException('User is not authenticated');
+        }
+
+        $user->email_verification_code = random_int(100000, 999999);
+        $user->save();
+
+        $user->notify(new ValidationCodeNotification());
     }
 }
