@@ -4,6 +4,7 @@ use App\Listeners\Auth\{CreateValidationCode};
 use App\Livewire\Auth\{EmailValidation, Register};
 use App\Models\User;
 use App\Notifications\Auth\ValidationCodeNotification;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 
 use function Pest\Laravel\actingAs;
@@ -106,6 +107,21 @@ describe('validate page', function () {
         expect($user->email_verification_code)->not->toBe($oldCode);
 
         Notification::assertSentTo($user, ValidationCodeNotification::class);
+    });
+
+    it('should update email_verification_at and clean code is the code validating', function () {
+        $user = User::factory()->withValidationCode()->create();
+
+        actingAs($user);
+
+        Livewire::test(EmailValidation::class)
+            ->set('code', $user->email_verification_code)
+            ->call('handle')
+            ->assertHasNoErrors()
+            ->assertRedirect(RouteServiceProvider::HOME);
+
+        expect($user->refresh()->email_verified_at)->not->toBeNull()
+            ->and($user->email_verification_code)->toBeNull();
     });
 
 });

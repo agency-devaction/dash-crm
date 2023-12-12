@@ -50,13 +50,6 @@ class UserFactory extends Factory
         );
     }
 
-    public function admin(): static
-    {
-        return $this->afterCreating(
-            fn (User $user) => $user->givePermissionTo(Can::BE_AN_ADMIN)
-        );
-    }
-
     public function deleted(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -65,9 +58,17 @@ class UserFactory extends Factory
         ]);
     }
 
+    public function admin(): static
+    {
+        return $this->afterCreating(
+            fn (User $user) => $user->givePermissionTo(Can::BE_AN_ADMIN)
+        );
+    }
+
     public function withValidationCode(): static
     {
         return $this->state(fn (array $attributes) => [
+            'email_verified_at'       => null,
             'email_verification_code' => random_int(100000, 999999),
         ]);
     }

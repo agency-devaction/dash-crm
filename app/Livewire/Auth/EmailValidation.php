@@ -3,13 +3,17 @@
 namespace App\Livewire\Auth;
 
 use App\Events\User\SendNewCode;
+use App\Providers\RouteServiceProvider;
+use App\Traits\User\AuthenticatedUser;
 use Closure;
-use http\Exception\RuntimeException;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use RuntimeException;
 
 class EmailValidation extends Component
 {
+    use AuthenticatedUser;
+
     public string $code = '';
     public function render(): View
     {
@@ -39,10 +43,16 @@ class EmailValidation extends Component
                 }
             },
         ]);
+
+        $user = $this->getAuthenticatedUser();
+
+        $user->email_verified_at       = now();
+        $user->email_verification_code = null;
+        $user->save();
+
+        $this->redirect(RouteServiceProvider::HOME);
     }
 
-    /**
-     */
     public function sendNewCode(): void
     {
         $user = auth()->user();
