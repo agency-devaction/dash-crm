@@ -27,6 +27,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  * @property Carbon|null $restored_at
  * @property int|null $restored_by
  * @property int|null $deleted_by
+ * @property int|null $email_verification_code
  */
 class User extends Authenticatable implements Auditable
 {
@@ -49,6 +50,7 @@ class User extends Authenticatable implements Auditable
         'restored_at',
         'restored_by',
         'deleted_by',
+        'email_verification_code',
     ];
 
     /**

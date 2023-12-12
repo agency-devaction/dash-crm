@@ -50,6 +50,14 @@ class UserFactory extends Factory
         );
     }
 
+    public function deleted(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'deleted_at' => now(),
+            'deleted_by' => User::factory()->admin(),
+        ]);
+    }
+
     public function admin(): static
     {
         return $this->afterCreating(
@@ -57,11 +65,11 @@ class UserFactory extends Factory
         );
     }
 
-    public function deleted(): static
+    public function withValidationCode(): static
     {
         return $this->state(fn (array $attributes) => [
-            'deleted_at' => now(),
-            'deleted_by' => User::factory()->admin(),
+            'email_verified_at'       => null,
+            'email_verification_code' => random_int(100000, 999999),
         ]);
     }
 }
