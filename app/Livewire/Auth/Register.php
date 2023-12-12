@@ -3,7 +3,6 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
-use App\Notifications\Register\WelcomeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\{Factory, View};
@@ -34,8 +33,6 @@ class Register extends Component
         ]);
 
         auth()->login($user);
-
-        $user->notify(new WelcomeNotification());
 
         Event::dispatch(new Registered($user));
 
