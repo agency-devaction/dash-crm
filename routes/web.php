@@ -14,7 +14,7 @@ Route::get('password/reset/{token}/{email?}', Password\Reset::class)->name('pass
 //endregion
 
 //region Authenticated
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified.user'])->group(function () {
     Route::get('/email-verification', fn () => 'email-verification')->name('auth.email-verification');
 
     Route::get('/', Welcome::class)->name('welcome');
