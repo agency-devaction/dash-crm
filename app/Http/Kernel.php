@@ -2,7 +2,16 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\{Authenticate, EncryptCookies, HandleImpersonate, PreventRequestsDuringMaintenance, RedirectIfAuthenticated, TrimStrings, TrustProxies, ValidateSignature, VerifyCsrfToken};
+use App\Http\Middleware\{Authenticate,
+    EncryptCookies,
+    HandleImpersonate,
+    PreventRequestsDuringMaintenance,
+    RedirectIfAuthenticated,
+    ShouldBeVerified,
+    TrimStrings,
+    TrustProxies,
+    ValidateSignature,
+    VerifyCsrfToken};
 use Illuminate\Auth\Middleware\{AuthenticateWithBasicAuth, Authorize, EnsureEmailIsVerified, RequirePassword};
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -73,5 +82,6 @@ class Kernel extends HttpKernel
         'signed'           => ValidateSignature::class,
         'throttle'         => ThrottleRequests::class,
         'verified'         => EnsureEmailIsVerified::class,
+        'verified.user'    => ShouldBeVerified::class,
     ];
 }
