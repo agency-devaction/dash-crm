@@ -17,7 +17,7 @@ it('should block the access to ab admin page if the user does not have the permi
     actingAs($user);
 
     Livewire::test(Dashboard::class)
-        ->assertForbidden();
+         ->assertForbidden();
 
     get(route('admin.dashboard'))
         ->assertForbidden();

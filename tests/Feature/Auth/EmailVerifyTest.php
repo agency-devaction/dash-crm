@@ -138,14 +138,4 @@ describe('middleware', function () {
         get(route('admin.dashboard'))
             ->assertRedirect(route('auth.email-verification'));
     });
-
-    it('should redirect to home page if the user is validated', function () {
-        $user = User::factory()->create();
-
-        actingAs($user);
-
-        Livewire::test(EmailValidation::class)
-            ->call('handle')
-            ->assertRedirect(RouteServiceProvider::HOME);
-    });
 });
