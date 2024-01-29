@@ -1,8 +1,8 @@
 <?php
 
 use App\Enum\Can;
-use App\Livewire\Auth;
 use App\Livewire\{Admin, Welcome};
+use App\Livewire\{Auth, Customers};
 use Illuminate\Support\Facades\Route;
 
 //region Flow
@@ -23,6 +23,10 @@ Route::middleware(['auth', 'verified.user'])->group(function () {
         Route::get('/', Admin\Dashboard::class)->name('admin.dashboard');
         Route::get('users', Admin\Users\Index::class)->name('admin.users');
     });
+    //endregion
+
+    //region Customer
+    Route::get('customer', Customers\Index::class)->name('admin.customer');
     //endregion
 });
 //endregion
