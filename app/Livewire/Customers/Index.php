@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\{Attributes\Computed, Component, WithPagination};
 
 /**
- * @property-read LengthAwarePaginator $customers
+ * @property-read LengthAwarePaginator|Customer[] $customers
  * @property-read array $headers
  */
 class Index extends Component

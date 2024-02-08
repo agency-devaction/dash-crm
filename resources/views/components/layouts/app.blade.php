@@ -21,10 +21,10 @@
     <x-slot:sidebar drawer="main-drawer" collapsible class="pt-3 bg-sky-800 text-white">
 
         <!-- Hidden when collapsed -->
-        <div class="hidden-when-collapsed ml-5 font-black text-4xl text-yellow-500">mary</div>
+        <div class="hidden-when-collapsed ml-5 font-black text-4xl text-yellow-500">{{ __('Fabmed') }}</div>
 
         <!-- Display when collapsed -->
-        <div class="display-when-collapsed ml-5 font-black text-4xl text-orange-500">m</div>
+        <div class="display-when-collapsed ml-5 font-black text-4xl text-orange-500">{{ __('F') }}</div>
 
         <!-- Custom `active menu item background color` -->
         <x-menu activate-by-route active-bg-color="bg-base-300/10">
@@ -45,8 +45,10 @@
 
             @can(Can::BE_AN_ADMIN->value)
                 <x-menu-sub title="{{ __('Admin') }}" icon="o-finger-print">
-                    <x-menu-item title="Dashboard" icon="o-newspaper" link="{{ route('admin.dashboard') }}"/>
-                    <x-menu-item title="Users" icon="o-users" link="{{ route('admin.users') }}"/>
+                    <x-menu-item title="{{ __('Dashboard') }}" icon="o-newspaper"
+                                 link="{{ route('admin.dashboard') }}"/>
+                    <x-menu-item title="{{ __('Users') }}" icon="o-users" link="{{ route('admin.users') }}"/>
+                    <x-menu-item title="{{ __('Customers') }}" icon="o-users" link="{{ route('admin.customer') }}"/>
                 </x-menu-sub>
             @endcan
         </x-menu>
