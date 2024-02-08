@@ -25,7 +25,7 @@
             />
         </div>
         <x-table :headers="$this->headers" :rows="$this->customers">
-            
+
             @scope('actions', $customer)
             <div class="flex items-center space-x-2">
 
@@ -44,7 +44,4 @@
             {{ $this->customers->links(data: ['scrollTo' => false]) }}
         </div>
     </div>
-    @foreach($this->customers as $customer)
-        {{ $customer->name }}
-    @endforeach
 </div>

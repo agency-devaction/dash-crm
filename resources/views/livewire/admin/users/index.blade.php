@@ -96,8 +96,6 @@
         <div class="mt-4">
             {{ $this->users->links(data: ['scrollTo' => false]) }}
         </div>
-    </div>
-    <div class="overflow-x-hidden overflow-y-auto">
         <livewire:admin.users.show/>
         <livewire:admin.users.impersonate/>
     </div>
