@@ -38,8 +38,6 @@ class Index extends Component
     #[Computed]
     public function customers(): LengthAwarePaginator
     {
-        ds($this->sortBy);
-
         return Customer::query()
             ->when(
                 $this->search,
