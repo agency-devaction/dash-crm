@@ -48,7 +48,8 @@
                     <x-menu-item title="{{ __('Dashboard') }}" icon="o-newspaper"
                                  link="{{ route('admin.dashboard') }}"/>
                     <x-menu-item title="{{ __('Users') }}" icon="o-users" link="{{ route('admin.users') }}"/>
-                    <x-menu-item title="{{ __('Customers') }}" icon="o-users" link="{{ route('admin.customer') }}"/>
+                    <x-menu-item title="{{ __('Customers') }}" icon="o-building-storefront"
+                                 link="{{ route('admin.customer') }}"/>
                 </x-menu-sub>
             @endcan
         </x-menu>
